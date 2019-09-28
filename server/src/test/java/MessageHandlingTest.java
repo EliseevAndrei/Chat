@@ -17,6 +17,9 @@ public class MessageHandlingTest {
     public void testParsing() {
         MessageHandler handler = new MessageHandler();
 
+        //Split this tests each in his own method
+        //To make some initial settings use method with @Before annotation
+        //Use "Assert" methods to check output values or annotations to expect exceptions
         byte[] b = "hello, world".getBytes();
         ByteBuffer buf = ByteBuffer.allocate(1024 * 1024);
         byte[] bf = new byte[1024*1024];

@@ -17,9 +17,11 @@ public class NioServerChat implements Runnable {
     private Selector selector;
     private static ChatRooms chatRooms;
     public static ByteBuffer buf = ByteBuffer.allocate(1024*1024);
+    //Add final modifier there
 
     public static void main(String[] args) throws IOException {
         new Thread(new NioServerChat()).start();
+        //Why are you creating another instance of main class? Make another main class which will run this one
         chatRooms = new ChatRooms();
         chatRooms.start();
     }
@@ -58,6 +60,7 @@ public class NioServerChat implements Runnable {
                 }
             } catch (IOException e) {
                 e.printStackTrace();
+                //Use log4j
             }
         }
     }
@@ -88,6 +91,7 @@ public class NioServerChat implements Runnable {
             }
         } catch (IOException e) {
             e.printStackTrace();
+            //Use log4j
         }
     }
 
@@ -98,6 +102,7 @@ public class NioServerChat implements Runnable {
             channel.register(selector, SelectionKey.OP_READ);
         } catch (IOException e) {
             e.printStackTrace();
+            //Use log4j
         }
     }
 

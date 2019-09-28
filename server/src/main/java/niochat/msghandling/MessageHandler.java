@@ -12,8 +12,9 @@ import java.nio.channels.SocketChannel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MessageHandler {
-    private static final byte[] startMessage = new byte[] {'<','S','T','A','R','T','_'};
+public class MessageHandler {//Class never used, delete it
+
+    private static final byte[] startMessage = new byte[] {'<','S','T','A','R','T','_'}; //Use "<START_".getBytes() instead
     private static final byte[] endMessage = new byte[] {'<','E','N','D','>'};
     private static final byte[] REGISTRATION = new byte[] {'/','r','e','g','i','s','t','e','r' ,' '};
     private static final byte[] FINISHED = new byte[] {'/','f','i','n','i','s','h','e','d'};
@@ -31,7 +32,11 @@ public class MessageHandler {
     private int limit = 0;
     private int sendingMessages = 0;
 
-
+    // This class is definitely a God object, it's doing too much different things
+    // You should split it on 3 (maybe even more) separate classes:
+    // 1) Low level channel processing. This class should read bytes from chanel and return strings; make byte arrays from strings and write them to channel
+    // 2) Message processing. This class should found in messages words like /leave, /exit, etc. What "isCommand" doing now
+    // 3) Other things: method "findRegistration", witch doing high level logic. It should be in another class, for example factory one
 
 
     public String isCommand() {
@@ -177,6 +182,7 @@ public class MessageHandler {
         byte[] valueLengthBytes = new byte[buf.remaining()];
         buf.flip();
 
+        //Put big branches into separate methods
         while (buf.hasRemaining()) {
             if (notCompletedMsg == null) {
 
