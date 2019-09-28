@@ -17,11 +17,13 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
+            <!--  Use <scope>test<scope>    -->
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
             <version>1.9.5</version>
+            <!--  Use <scope>test<scope>    -->
         </dependency>
     </dependencies>
 
@@ -47,6 +49,7 @@
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>libs/</classpathPrefix>
                             <mainClass>multithread.SmallServerSocket</mainClass>
+                            <!-- Can't run jar. Error: Could not find or load main class multithread.SmallServerSocket -->
                         </manifest>
                     </archive>
                 </configuration>

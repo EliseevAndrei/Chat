@@ -21,6 +21,8 @@ public class ChatRooms extends Thread {
     private BlockingQueue<Client> clients = new LinkedBlockingQueue<>();
     private Queue<Man> manForRegistration = new ArrayDeque<>();
 
+    //Check method modifiers, some of them can be private
+
     public ChatRooms() throws IOException {
         new Thread(() -> {
             while (true) {
@@ -33,6 +35,7 @@ public class ChatRooms extends Thread {
                     client.companion = agent.myChannel;
                     manForRegistration.add(agent);
                     manForRegistration.add(client);
+                    //Why are you connecting users right after connection? Would be better if you'll connect them after client write one message
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -60,6 +63,7 @@ public class ChatRooms extends Thread {
                 }
             } catch (IOException e) {
                 e.printStackTrace();
+                //Use log4j
             }
         }
     }
@@ -80,8 +84,10 @@ public class ChatRooms extends Thread {
                 obj.myChannel.register(selector2, 0, obj);
                 this.agents.add((Agent) obj);
             }
+            //Use log4j
         } catch (ClosedChannelException e) {
             e.printStackTrace();
+            //Use log4j
         }
     }
 
@@ -114,6 +120,7 @@ public class ChatRooms extends Thread {
                             key.cancel();
                             break;
                     }
+                    //Method too big, put switch in other method
                 } else if (!man.write(selector2)) {
                     closeRoom(man.companion.keyFor(selector2),key , man);
                 }
@@ -124,6 +131,7 @@ public class ChatRooms extends Thread {
             }
         } catch (IOException e) {
             e.printStackTrace();
+            //Use log4j
         }
     }
 
@@ -136,8 +144,10 @@ public class ChatRooms extends Thread {
             if (man instanceof Client) {
                 clients.add((Client) man);
             } else agents.add((Agent) man);
+            //Use log4j
         } catch (IOException e) {
             e.printStackTrace();
+            //Use log4j
         }
     }
 

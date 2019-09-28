@@ -22,3 +22,7 @@
     </dependencies>
 
 </project>
+
+<!--
+Add .gitignore, where add .idea/ and other not important files and folders
+-->

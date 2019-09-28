@@ -13,14 +13,17 @@ public class SmallClientSocket {
     private static volatile  boolean waiting = true;
     public static void main(String[] args) {
         ExecutorService service = Executors.newCachedThreadPool();
+        //You really need ExecutorService for one thread? It's redundant
         try (
                 Socket socket = new Socket(InetAddress.getLocalHost(), 9999);//8030
                 PrintStream ps = new PrintStream(socket.getOutputStream());
                 BufferedReader br = new BufferedReader(
                         new InputStreamReader(socket.getInputStream()))
+                //Don't use abbreviations as variables names (ps, br)
         ) {
             Scanner scan = new Scanner(System.in);
             service.execute(new Thread(() -> {
+                //Put this runnable in other method
                 String str = "";
                 while (!isClosed) {
                     try {
@@ -45,6 +48,7 @@ public class SmallClientSocket {
                     }
                 }
             }));
+            //Put part with "while" in other method
             String str;
             while (!isClosed) {
                 str = scan.nextLine();
@@ -66,6 +70,7 @@ public class SmallClientSocket {
         }   catch (IOException e) {
             e.printStackTrace();
         }
+        //Two absolutely same catch blocks, collapse them
     }
 
 

@@ -1,6 +1,7 @@
 package niochat.msghandling;
 
 public class Message {
+    //Don't use modifier "public" for class fields if they are not final, use getters and setters instead
     public byte[] value = null;
     int curPosition = 0;
     int remaining = 0;
